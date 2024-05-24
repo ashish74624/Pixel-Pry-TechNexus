@@ -32,7 +32,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import Image from 'next/image';
+import fuzzysort from 'fuzzysort';
 
 interface ImageInfo {
     _id: string;
@@ -107,7 +107,13 @@ const cloudName = process.env.CLOUD_NAME;
     getFolderData();
   },[loading,params.email,params.folderName])
 
-    
+   const filteredImages = searchValue
+    ? fuzzysort.go(searchValue, images, {
+        keys: ['imageCaption', 'imageName'],
+        threshold: -100000, 
+        scoreFn: (a) => Math.max(a[0] ? a[0].score : -100000, a[1] ? a[1].score : -100000),
+      }).map(result => result.obj)
+    : images;  
   
 
   // const images:ImageInfo[] = await getFolderData(params.email,params.folderName);
@@ -119,13 +125,15 @@ const cloudName = process.env.CLOUD_NAME;
       <section className='w-[80vw] mx-auto mt-6'>
         <div className='flex w-full justify-between'>
           <h1 className='text-4xl'>{decodedFolderName}</h1>
+          <div className='flex gap-4'>
+          <input type="search" id="default-search" onChange={(e)=>{setSearchValue(e.target.value)}} className="block w-full lg:w-[500px] px-4 py-1.5 ps-10 text-sm text-black ring-2 ring-purple-600  rounded-full bg-gray-50  focus:outline-none " placeholder="Active Search" required />
           <Drawer>
             <DrawerTrigger className='bg-purple-700 px-6 text-sm gap-3 rounded-full flex items-center'>New <IconBookUpload size={20} stroke={1}/> </DrawerTrigger>
             <DrawerContent className='dark'>
               <DropZone folderName={decodedFolderName as string} email={params.email as string}  />
             </DrawerContent>
           </Drawer>
-          <input type="search" id="default-search" onChange={(e)=>{setSearchValue(e.target.value)}} className="block w-full lg:w-[500px] px-4 py-2.5 ps-10 text-sm text-black border  rounded bg-gray-50 placeholder:text-gray-200 focus:outline-none " placeholder="Search" required />
+          </div>
         </div>
         {/*  */}
         {
@@ -135,9 +143,9 @@ const cloudName = process.env.CLOUD_NAME;
           :
           <div className={`w-max grid ${images.length >0 ? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1 ':'grid-cols-1'} gap-8 mx-auto mt-6 place-content-center`}>
           {
-            images.length >0
+            filteredImages.length >0
             ?
-              images.filter((item)=>{
+              filteredImages.filter((item)=>{
                 return searchValue.toLowerCase() ===''? item: item.imageCaption.toLowerCase().includes(searchValue.toLowerCase()) || item.imageName.toLowerCase().includes(searchValue.toLowerCase())
               }).map((data:ImageInfo)=>(
               <Card key={data._id} className='dark w-72'>
@@ -190,7 +198,7 @@ const cloudName = process.env.CLOUD_NAME;
             ))
             :
             <div className='w-full h-max flex justify-center items-center mx-auto'>
-              No Images available yet
+              No Images Found
             </div>
           }
         </div>

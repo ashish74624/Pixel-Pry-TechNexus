@@ -65,6 +65,9 @@ const DropZone = ({folderName,email}:DropZoneProps) => {
       console.error('Error:', error);
     } finally {
         setUploading(false);
+        setTimeout(()=>{
+                window.location.reload()
+            },1000)
     }
 };
 
@@ -74,28 +77,26 @@ const DropZone = ({folderName,email}:DropZoneProps) => {
 
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div {...getRootProps({ className: 'dropzone cursor-pointer bg-red-500 h-64 w-96 rounded-lg' })}>
+    <div className="flex flex-col items-center justify-center pb-20">
+      <div {...getRootProps({ className: 'dropzone cursor-pointer bg-gray-300 text-zinc-800 mt-4 flex justify-center items-center h-64 w-[70%] rounded-lg' })}>
         <input {...getInputProps()} />
         {preview ? (
           <img src={preview} alt="Preview" className="w-full h-full mb-4 rounded-lg" />
         ) : (
-          <p className="text-gray-500">Drag & drop image here, or click to select</p>
+          <div className="text-gray-500 flex flex-col w-max h-max justify-center items-center">
+            <IconCloudUpload/>
+            Drag & drop image here, or click to select
+          </div>
         )}
       </div>
       <button
         onClick={handleUpload}
         disabled={!image || uploading}
-        className="px-4 py-2 mt-4 bg-blue-500 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed"
+        className="px-4 py-2 mt-4 bg-purple-600 text-white rounded-full disabled:bg-gray-300 disabled:cursor-not-allowed"
       >
         {uploading ? 'Uploading...' : 'Upload'}
       </button>
-      {text && (
-        <div className="mt-4 text-white">
-          <h3 className="text-xl font-semibold">Text:</h3>
-          <p className="mt-2 ">{text}</p>
-        </div>
-      )}
+      
     </div>
   );
 };

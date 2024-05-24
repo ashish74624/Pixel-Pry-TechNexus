@@ -106,16 +106,16 @@ const DropZone = ({folderName,email}:DropZoneProps) => {
     <section className='h-3/5 pb-40 w-screen overflow-x-hidden overflow-y-auto pt-24 flex flex-col items-center' >
       <div {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
-        <div className='flex flex-col justify-center items-center h-80 w-[85vw] xl:w-[70vw] rounded-lg bg-blue-200 hover:bg-blue-300 cursor-pointer transition-all border-dashed border-2 border-blue-950' >
+        <div className='flex flex-col justify-center items-center h-80 w-[85vw] xl:w-[70vw] rounded-lg bg-gray-300 hover:bg-gray-400 cursor-pointer transition-all duration-300 border-dashed border-2 border-blue-950' >
             <IconCloudUpload/>
             <p className='text-base'>Drag and drop images here</p>
         </div>
       </div>
         <div className=' mt-2 space-x-2'>
-        <button className=' bg-[#4A5699] w-20 h-10 rounded-lg text-white' onClick={()=>{imageUpload()}}>
+        <button className=' bg-purple-600 w-24 h-10 rounded-full text-white' onClick={()=>{imageUpload()}}>
           Upload
         </button>
-        <button className=' bg-[#4A5699] w-20 h-10 rounded-lg text-white' onClick={()=>{setImages([])}}>
+        <button className=' bg-purple-600 w-24 h-10 rounded-full text-white' onClick={()=>{setImages([])}}>
           Clear All
         </button>
         </div>

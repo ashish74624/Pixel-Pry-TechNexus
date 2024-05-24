@@ -76,6 +76,7 @@ export const uploadImage = async(req,res)=>{
                 email:req.params.email,
                 folderName: req.body.folderName,
                 imageName: req.body.imageName,
+                imageCaption:req.body.text,
                 imageCloud:{
                     versionName:result.version,
                     generatedName:result.public_id,

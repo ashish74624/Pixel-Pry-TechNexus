@@ -52,7 +52,7 @@ const DropZone = ({folderName,email}:DropZoneProps) => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            image: image,
+            image: base64,
             folderName: folderName,
             imageName: image.name,
             text: text

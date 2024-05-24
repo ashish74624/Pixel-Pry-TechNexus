@@ -1,7 +1,7 @@
 import Doc from '../models/Doc.js'
 import Folder from '../models/Folder.js'
 import cloudinary from '../config/cloudinaryConfig.js';
-
+import multer from 'multer'
 // Start writing functions
 
 export const getFolders = async(req,res)=>{
@@ -57,7 +57,12 @@ export const getImage = async(req,res)=>{
     }
 }
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 export const uploadImage = async(req,res)=>{
+    console.log(typeof req.body.text);
+    console.log(req.params.email);
     try {
         // console.log(req.body.image)
         const imageName = await Folder.find({$and:[{folderName:req.body.folderName},{imageName:req.body.imageName},{email:req.params.email}]});
@@ -66,8 +71,8 @@ export const uploadImage = async(req,res)=>{
             res.status(409).json({msg:"Image Name Already exists"});
         }
         else{
-            const result = await cloudinary.uploader.upload(req.body.image);
-            const folderData = new Folder({
+                const result = await cloudinary.uploader.upload(req.body.image);
+                const folderData = new Folder({
                 email:req.params.email,
                 folderName: req.body.folderName,
                 imageName: req.body.imageName,
@@ -81,7 +86,7 @@ export const uploadImage = async(req,res)=>{
         }
     } catch (error) {
         // console.log(error)
-        res.status(500).json({msg:"Not Done"});
+        res.status(500).json({msg:error});
     }
 }
 

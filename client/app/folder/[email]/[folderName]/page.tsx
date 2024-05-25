@@ -162,7 +162,7 @@ const cloudName = process.env.CLOUD_NAME;
 
     <main className='text-white pb-10'>
       <Navbar userData={user as tokenType} />
-      <section className='w-max mx-auto mt-6'>
+      <section className={` ${filteredImages.length >0 ? 'w-max':'lg:w-[900px] md:w-[70vw] w-[85vw]'}  mx-auto mt-6 `}>
         <div className='flex flex-col gap-2 md:flex-row w-full justify-between'>
           <h1 className={`text-4xl text-center ${pix.className}`}>{decodedFolderName}</h1>
           <div className='flex gap-4'>
@@ -181,7 +181,7 @@ const cloudName = process.env.CLOUD_NAME;
           ?
           <ImageSkel/>
           :
-          <div className={`w-max grid ${images.length >0 ? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1 ':'grid-cols-1'} gap-8 mx-auto mt-6 place-content-center`}>
+          <div className={` grid ${filteredImages.length >0 ? 'w-max lg:grid-cols-3 md:grid-cols-2 grid-cols-1 ':'grid-cols-1 w-full'} gap-8 mx-auto mt-6 place-content-center`}>
           {
             filteredImages.length >0
             ?

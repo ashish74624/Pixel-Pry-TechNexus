@@ -34,10 +34,9 @@ export default function LoginForm() {
         body:JSON.stringify(data)
       });
       const output = await res.json();
-      console.log(output)
       if(!res.ok){
         setError('root',{
-        message:'Bad Request'
+        message:output.msg
       })
       }else{
         localStorage.setItem("token",output.user);
@@ -45,7 +44,7 @@ export default function LoginForm() {
       }
     }catch(err:any){
       setError('root',{
-        message:err
+        message:'Bad Request'
       })
     }
   }

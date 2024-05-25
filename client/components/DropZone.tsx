@@ -46,7 +46,7 @@ const DropZone = ({folderName,email}:DropZoneProps) => {
         setText(text);
 
         const base64 = await convertToBase64(image) as string;
-        const response = await fetch(`http://localhost:3001/${decodeURIComponent(email)}/upload`, {
+        const response = await fetch(`${backend}/${decodeURIComponent(email)}/upload`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

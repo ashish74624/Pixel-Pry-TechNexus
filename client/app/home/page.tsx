@@ -15,6 +15,7 @@ interface tokenType {
   iat: number;
 }
 
+
 const backend = process.env.BACKEND;
 
 export default function Home() {
@@ -51,7 +52,7 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar userData={user as tokenType}/>
       <Folder userData={user as tokenType} />
     </div>
   );

@@ -27,12 +27,17 @@ import decodeURIComponent  from 'decode-uri-component';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
 import fuzzysort from 'fuzzysort';
+import {jwtDecode} from "jwt-decode"; // Updated import statement
+import { useRouter } from 'next/navigation';
+import { Pixelify_Sans } from "next/font/google";
+
+const pix = Pixelify_Sans({
+  subsets:['cyrillic'],
+  weight:'400'
+})
 
 interface ImageInfo {
     _id: string;
@@ -48,6 +53,14 @@ interface ImageInfo {
     __v: number;
 }
 
+interface tokenType {
+  _id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  iat: number;
+}
+
 const backend = process.env.BACKEND;
 const cloudName = process.env.CLOUD_NAME;
 
@@ -58,6 +71,9 @@ const cloudName = process.env.CLOUD_NAME;
   const [newImageName,setNewImageName] = useState('')
   const decodedFolderName = decodeURIComponent(params.folderName);
   const [searchValue,setSearchValue] = useState<string>('');
+
+  const navigate = useRouter();
+  const [user, setUser] = useState<tokenType >(); 
 
   const renameImage=async(event:React.FormEvent<HTMLFormElement>,id:string)=>{
         event.preventDefault();
@@ -105,7 +121,31 @@ const cloudName = process.env.CLOUD_NAME;
         setLoading(false);
       }
     getFolderData();
-  },[loading,params.email,params.folderName])
+
+    const verify = async (token: string) => {
+      const res = await fetch(`${backend}/api/users/verifyToken`, {
+        headers: {
+          'x-access-token': token,
+        },
+      });
+      if (!res.ok) {
+        navigate.push('/');
+      }
+    };
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      try { // Wrap jwt_decode in a try-catch block for error handling
+        const userDecoded = jwtDecode(token) as tokenType;
+        setUser(userDecoded);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        // Handle token decoding errors (e.g., invalid token format)
+      }
+    }
+
+    verify(token as string);
+  },[navigate])
 
    const filteredImages = searchValue
     ? fuzzysort.go(searchValue, images, {
@@ -121,10 +161,10 @@ const cloudName = process.env.CLOUD_NAME;
   return (
 
     <main className='text-white pb-10'>
-      <Navbar/>
-      <section className='w-[80vw] mx-auto mt-6'>
+      <Navbar userData={user as tokenType} />
+      <section className={` ${filteredImages.length >0 ? 'w-max':'lg:w-[900px] md:w-[70vw] w-[85vw]'}  mx-auto mt-6 `}>
         <div className='flex flex-col gap-2 md:flex-row w-full justify-between'>
-          <h1 className='text-4xl'>{decodedFolderName}</h1>
+          <h1 className={`text-4xl text-center ${pix.className}`}>{decodedFolderName}</h1>
           <div className='flex gap-4'>
           <input type="search" id="default-search" onChange={(e)=>{setSearchValue(e.target.value)}} className="block w-full lg:w-[500px] px-4 py-1.5 ps-10 text-sm text-black ring-2 ring-purple-600  rounded-full bg-gray-50  focus:outline-none " placeholder="Active Search" required />
           <Drawer>
@@ -141,7 +181,7 @@ const cloudName = process.env.CLOUD_NAME;
           ?
           <ImageSkel/>
           :
-          <div className={`w-max grid ${images.length >0 ? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1 ':'grid-cols-1'} gap-8 mx-auto mt-6 place-content-center`}>
+          <div className={` grid ${filteredImages.length >0 ? 'w-max lg:grid-cols-3 md:grid-cols-2 grid-cols-1 ':'grid-cols-1 w-full'} gap-8 mx-auto mt-6 place-content-center`}>
           {
             filteredImages.length >0
             ?

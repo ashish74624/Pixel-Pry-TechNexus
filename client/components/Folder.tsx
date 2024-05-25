@@ -30,11 +30,6 @@ interface FolderList  {
         _id: string;
     }
 
-// interface FolderInfo {
-//     _id: string;
-//     folders: FolderList[];
-//     __v: number;
-// }
 
 const backend = process.env.BACKEND;
 
@@ -155,7 +150,7 @@ export default  function Folder({userData}:FolderProps) {
     },[userData])
     // console.log(folders);
   return (
-  <div className=" w-[90vw] md:w-[80vw] xl:w-[50vw] py-4 px-2 border rounded-lg shadow sm:p-8 bg-zinc-900 border-gray-700 h-max mt-10 mx-auto ">
+  <div className=" w-[90vw] md:w-[80vw] xl:w-[50vw] py-4 px-2 border rounded-lg shadow sm:p-8 bg-zinc-900 border-gray-700 h-max mt-10 mx-auto text-white">
     <div className="flex items-center justify-between mb-4 mx-auto w-full ">
         <h5 className="text-2xl font-bold leading-none text-white">Your Folders</h5>
         {/* <button className="bg-purple-700 px-6 text-sm gap-3 py-2 text-white rounded-full flex items-center">

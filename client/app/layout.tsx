@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-black dark ${comfortaa.className} `}>{children}</body>
+      <body className={`bg-black ${comfortaa.className} `}>{children}</body>
     </html>
   );
 }

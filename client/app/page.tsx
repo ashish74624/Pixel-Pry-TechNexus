@@ -10,11 +10,11 @@ export default function Home() {
       <Vortex
         backgroundColor="black"
         rangeY={800}
-        particleCount={100}
+        particleCount={700}
         className="flex items-center flex-col justify-center px-2 md:px-10  py-4 w-full h-full"
       >
-        <h1 className="text-white text-4xl md:text-6xl font-bold text-center">
-          Image Uploader
+        <h1 className="text-white text-4xl md:text-6xl lg:text-8xl font-bold text-center">
+          Pixel Pry
         </h1>
         <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
           <Link href={'/login'}>

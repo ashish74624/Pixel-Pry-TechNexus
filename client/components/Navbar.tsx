@@ -9,7 +9,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Pixelify_Sans } from "next/font/google";
 
+const pix = Pixelify_Sans({
+  subsets:['cyrillic'],
+  weight:'400'
+})
 
 interface tokenType {
   _id: string;
@@ -29,7 +34,7 @@ export function Navbar({userData}:Props) {
   return (
       <nav className="w-full dark text-white py-2 border-b shadow-lg shadow-purple-400/40 border-gray-700 overflow-hidden flex items-center mx-auto">
         <Vortex backgroundColor="black" rangeY={800} particleCount={100} className="flex items-center justify-between px-2 md:px-32  py-4 dark h-full w-full ">
-          <p className="text-4xl font-semibold">
+          <p className={`text-5xl font-semibold ${pix.className}`}>
             Pixel Pry
           </p>  
           <DropdownMenu>

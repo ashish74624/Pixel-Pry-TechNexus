@@ -27,15 +27,17 @@ import decodeURIComponent  from 'decode-uri-component';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
 import fuzzysort from 'fuzzysort';
 import {jwtDecode} from "jwt-decode"; // Updated import statement
 import { useRouter } from 'next/navigation';
+import { Pixelify_Sans } from "next/font/google";
 
+const pix = Pixelify_Sans({
+  subsets:['cyrillic'],
+  weight:'400'
+})
 
 interface ImageInfo {
     _id: string;
@@ -160,9 +162,9 @@ const cloudName = process.env.CLOUD_NAME;
 
     <main className='text-white pb-10'>
       <Navbar userData={user as tokenType} />
-      <section className='w-[80vw] mx-auto mt-6'>
+      <section className='w-max mx-auto mt-6'>
         <div className='flex flex-col gap-2 md:flex-row w-full justify-between'>
-          <h1 className='text-4xl'>{decodedFolderName}</h1>
+          <h1 className={`text-4xl text-center ${pix.className}`}>{decodedFolderName}</h1>
           <div className='flex gap-4'>
           <input type="search" id="default-search" onChange={(e)=>{setSearchValue(e.target.value)}} className="block w-full lg:w-[500px] px-4 py-1.5 ps-10 text-sm text-black ring-2 ring-purple-600  rounded-full bg-gray-50  focus:outline-none " placeholder="Active Search" required />
           <Drawer>

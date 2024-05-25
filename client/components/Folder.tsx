@@ -30,11 +30,6 @@ interface FolderList  {
         _id: string;
     }
 
-// interface FolderInfo {
-//     _id: string;
-//     folders: FolderList[];
-//     __v: number;
-// }
 
 const backend = process.env.BACKEND;
 

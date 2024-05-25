@@ -54,10 +54,12 @@ export const deleteFolder=async(req,res)=>{
     }
 }
 
-export const renameFolder = async(req, res) => {
+export const renameFolder = async (req, res) => {
     const { email } = req.params;
     const { newFolderName, oldFolderName } = req.body;
+
     try {
+        // Step 1: Update the folder name in the Doc model
         const doc = await Doc.findOne({ email });
 
         if (!doc) {
@@ -77,12 +79,23 @@ export const renameFolder = async(req, res) => {
         folderToUpdate.folderName = newFolderName;
         await doc.save();
 
+        // Step 2: Update the folder name in the Folder model
+        const updatedFolders = await Folder.updateMany(
+            { email, folderName: oldFolderName },
+            { $set: { folderName: newFolderName } }
+        );
+
+        if (updatedFolders.nModified === 0) {
+            return res.status(404).json({ msg: 'No images found with the old folder name' });
+        }
+
         return res.json({ msg: 'Folder name updated successfully' });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ msg: 'Internal server error' });
     }
 };
+
 
 
 // app.put('/folders/:email/:oldFolderName', async (req, res) => {

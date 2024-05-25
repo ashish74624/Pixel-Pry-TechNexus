@@ -123,12 +123,12 @@ const cloudName = process.env.CLOUD_NAME;
     <main className='text-white pb-10'>
       <Navbar/>
       <section className='w-[80vw] mx-auto mt-6'>
-        <div className='flex w-full justify-between'>
+        <div className='flex flex-col gap-2 md:flex-row w-full justify-between'>
           <h1 className='text-4xl'>{decodedFolderName}</h1>
           <div className='flex gap-4'>
           <input type="search" id="default-search" onChange={(e)=>{setSearchValue(e.target.value)}} className="block w-full lg:w-[500px] px-4 py-1.5 ps-10 text-sm text-black ring-2 ring-purple-600  rounded-full bg-gray-50  focus:outline-none " placeholder="Active Search" required />
           <Drawer>
-            <DrawerTrigger className='bg-purple-700 px-6 text-sm gap-3 rounded-full flex items-center'>New <IconBookUpload size={20} stroke={1}/> </DrawerTrigger>
+            <DrawerTrigger className='bg-purple-700 px-6 text-sm gap-3 rounded-full flex items-center'><span className='hidden md:inline'>New</span> <IconBookUpload size={20} stroke={1}/> </DrawerTrigger>
             <DrawerContent className='dark'>
               <DropZone folderName={decodedFolderName as string} email={params.email as string}  />
             </DrawerContent>
@@ -154,8 +154,14 @@ const cloudName = process.env.CLOUD_NAME;
               </CardContent>
               <CardFooter>
                 <div className='w-full'>
-                  <h1 className='text-center'>{data.imageName}</h1>
-                <div className='w-full gap-4 flex'>
+                  <h1 className='text-center bg-slate-400 mb-2 mx-auto w-max rounded-lg px-3 py-1'>{data.imageName}</h1>
+                <div className='w-full justify-between flex'>
+                   <Dialog >
+                  <DialogTrigger className=' text-white hover:underline text-sm'>View</DialogTrigger>
+                  <DialogContent className='dark grid place-content-center'>
+                    <img className=' w-[80vw] h-64 md:w-[60vw] md:h-96 lg:w-[500px] lg:h-[500px] rounded-xl mt-6' width={100} height={100} src={`https://res.cloudinary.com/${cloudName}/image/upload/v${data.imageCloud.versionName}/${data.imageCloud.generatedName}`} alt={data.imageName} />
+                  </DialogContent>
+                </Dialog>
                   <Dialog>
                   <DialogTrigger className=' text-white hover:underline text-sm'>Rename</DialogTrigger>
                   <DialogContent className='dark'>

@@ -61,8 +61,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 export const uploadImage = async(req,res)=>{
-    console.log(typeof req.body.text);
-    console.log(req.params.email);
+    
     try {
         // console.log(req.body.image)
         const imageName = await Folder.find({$and:[{folderName:req.body.folderName},{imageName:req.body.imageName},{email:req.params.email}]});

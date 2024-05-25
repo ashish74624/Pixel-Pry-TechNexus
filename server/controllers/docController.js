@@ -5,7 +5,6 @@ import User from '../models/user.js'
 
 export const addFolder = async(req, res) => {
     if (!req.body.folderName) {
-        console.log("No folder");
         return res.status(400).json({ msg: 'Please add a Folder Name' });
     }
     const folderName = req.body.folderName;
@@ -41,7 +40,6 @@ export const deleteFolder=async(req,res)=>{
         if (!doc1) {
             res.status(404).json({msg:'User Not Found'});
         }
-        // console.log(doc.folders)
         const doc = await Doc.findOneAndUpdate({email:req.body.email},{
             $pull :{
                 folders:{_id:req.body.id}
@@ -91,7 +89,6 @@ export const renameFolder = async (req, res) => {
 
         return res.json({ msg: 'Folder name updated successfully' });
     } catch (error) {
-        console.error(error);
         return res.status(500).json({ msg: 'Internal server error' });
     }
 };

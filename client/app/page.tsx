@@ -1,7 +1,13 @@
 import { Vortex } from "@/components/ui/vortex";
 import { Button } from "@/components/ui/moving-border";
 import Link from "next/link";
-import { FlipWords } from "@/components/ui/flip-words";
+import { Pixelify_Sans } from "next/font/google";
+
+const pix = Pixelify_Sans({
+  subsets:['cyrillic'],
+  weight:'400'
+})
+
 
 export default function Home() {
   const words = ["better", "cute", "beautiful", "modern"];
@@ -13,7 +19,7 @@ export default function Home() {
         particleCount={700}
         className="flex items-center flex-col justify-center px-2 md:px-10  py-4 w-full h-full"
       >
-        <h1 className="text-white text-4xl md:text-6xl lg:text-8xl font-bold text-center">
+        <h1 className={`text-white text-4xl md:text-6xl lg:text-8xl font-bold text-center ${pix.className}`}>
           Pixel Pry
         </h1>
         <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">

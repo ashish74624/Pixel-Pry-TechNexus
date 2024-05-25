@@ -51,10 +51,10 @@ export default  function Folder({userData}:FolderProps) {
           const data = await res.json();
           if(res.ok){
             // toast.dismiss();
-            setTimeout(()=>{
-                toast.success(data.msg);
-                window.location.reload()
-            },100)
+            // setTimeout(()=>{
+            //     toast.success(data.msg);
+            //     window.location.reload()
+            // },100)
           }
           else{
             // toast.dismiss();

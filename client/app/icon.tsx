@@ -25,7 +25,7 @@ export default function Icon() {
           alignItems: 'center',
           justifyContent: 'center',
           color: 'white',
-          borderRadius:'10px'
+          borderRadius:'5px'
         }}
       >
         P

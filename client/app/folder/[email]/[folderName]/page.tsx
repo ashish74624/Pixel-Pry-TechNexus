@@ -161,7 +161,7 @@ const cloudName = process.env.CLOUD_NAME;
   return (
 
     <main className='text-white pb-10'>
-      <Navbar userData={user as tokenType} />
+      <Navbar link={true} userData={user as tokenType} />
       <section className={` ${filteredImages.length >0 ? 'w-max':'lg:w-[900px] md:w-[70vw] w-[85vw]'}  mx-auto mt-6 `}>
         <div className='flex flex-col gap-2 md:flex-row w-full justify-between'>
           <h1 className={`text-4xl text-center ${pix.className}`}>{decodedFolderName}</h1>
@@ -194,7 +194,7 @@ const cloudName = process.env.CLOUD_NAME;
               </CardContent>
               <CardFooter>
                 <div className='w-full'>
-                  <h1 className='text-center bg-slate-400 mb-2 mx-auto w-max rounded-lg px-3 py-1'>{data.imageName}</h1>
+                  <h1 className='text-center bg-slate-400 mb-2 mx-auto w-max max-w-full rounded-lg px-3 py-1'>{data.imageName}</h1>
                 <div className='w-full justify-between flex'>
                    <Dialog >
                   <DialogTrigger className=' text-white hover:underline text-sm'>View</DialogTrigger>

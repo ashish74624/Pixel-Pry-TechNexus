@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Pixel Pry",
-  description: "An Image Management app by Team Nexus - NMIT HACKS 2024",
+  description: "An Image Management app by TechNexus - NMIT HACKS 2024",
 };
 
 export default function RootLayout({

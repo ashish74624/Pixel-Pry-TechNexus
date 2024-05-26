@@ -15,7 +15,7 @@ app.use(cors({
   methods: ['GET', 'PUT', 'POST', 'DELETE','PATCH'],
   credentials: true
 }));
-app.use(express.json({ limit: '10mb' }))// For body parsing
+app.use(express.json({ limit: '10mb' }))
 
 dotenv.config();
 

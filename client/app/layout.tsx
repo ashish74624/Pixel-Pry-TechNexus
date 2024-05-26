@@ -8,7 +8,6 @@ const comfortaa = Comfortaa({
   weight:'500'
 })
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Pixel Pry",

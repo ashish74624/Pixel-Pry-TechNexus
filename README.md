@@ -55,4 +55,4 @@ We welcome contributions from the community to enhance Pixel Pry. If you'd like 
 
 ---
 
-Thank you for choosing Pixel Pry! If you have any questions or feedback, please don't hesitate to reach out to us. Happy coding!
+Happy coding!
